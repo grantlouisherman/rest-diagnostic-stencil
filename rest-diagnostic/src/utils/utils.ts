@@ -1,8 +1,3 @@
+import yaml from 'js-yaml'
 
-export function format(first: string, middle: string, last: string): string {
-  return (
-    (first || '') +
-    (middle ? ` ${middle}` : '') +
-    (last ? ` ${last}` : '')
-  );
-}
+export const loadYaml = file => yaml.load(file)

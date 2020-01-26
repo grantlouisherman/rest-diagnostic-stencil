@@ -11,7 +11,11 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface AppRoot {}
+  interface ComponentIcon {
+    'responseStatus': number;
+  }
   interface DiagnoseItem {}
+  interface FileUpload {}
 }
 
 declare global {
@@ -23,24 +27,44 @@ declare global {
     new (): HTMLAppRootElement;
   };
 
+  interface HTMLComponentIconElement extends Components.ComponentIcon, HTMLStencilElement {}
+  var HTMLComponentIconElement: {
+    prototype: HTMLComponentIconElement;
+    new (): HTMLComponentIconElement;
+  };
+
   interface HTMLDiagnoseItemElement extends Components.DiagnoseItem, HTMLStencilElement {}
   var HTMLDiagnoseItemElement: {
     prototype: HTMLDiagnoseItemElement;
     new (): HTMLDiagnoseItemElement;
   };
+
+  interface HTMLFileUploadElement extends Components.FileUpload, HTMLStencilElement {}
+  var HTMLFileUploadElement: {
+    prototype: HTMLFileUploadElement;
+    new (): HTMLFileUploadElement;
+  };
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement;
+    'component-icon': HTMLComponentIconElement;
     'diagnose-item': HTMLDiagnoseItemElement;
+    'file-upload': HTMLFileUploadElement;
   }
 }
 
 declare namespace LocalJSX {
   interface AppRoot {}
+  interface ComponentIcon {
+    'responseStatus'?: number;
+  }
   interface DiagnoseItem {}
+  interface FileUpload {}
 
   interface IntrinsicElements {
     'app-root': AppRoot;
+    'component-icon': ComponentIcon;
     'diagnose-item': DiagnoseItem;
+    'file-upload': FileUpload;
   }
 }
 
@@ -51,7 +75,9 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'app-root': LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+      'component-icon': LocalJSX.ComponentIcon & JSXBase.HTMLAttributes<HTMLComponentIconElement>;
       'diagnose-item': LocalJSX.DiagnoseItem & JSXBase.HTMLAttributes<HTMLDiagnoseItemElement>;
+      'file-upload': LocalJSX.FileUpload & JSXBase.HTMLAttributes<HTMLFileUploadElement>;
     }
   }
 }
