@@ -1,4 +1,6 @@
 import { Component, h, Listen } from "@stencil/core";
+import yaml from 'js-yaml'
+
 
 @Component({
   tag: "app-root",
@@ -8,7 +10,7 @@ import { Component, h, Listen } from "@stencil/core";
 export class Root {
   @Listen('upoadCompleteEvent')
   uploadFileHanlder(event: CustomEvent){
-    console.log(event.detail)
+    console.log(yaml.load(event.detail))
   }
   render() {
     return (
