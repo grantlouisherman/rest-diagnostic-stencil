@@ -58,7 +58,9 @@ declare namespace LocalJSX {
     'responseStatus'?: number;
   }
   interface DiagnoseItem {}
-  interface FileUpload {}
+  interface FileUpload {
+    'onUpoadCompleteEvent'?: (event: CustomEvent<string | ArrayBuffer>) => void;
+  }
 
   interface IntrinsicElements {
     'app-root': AppRoot;

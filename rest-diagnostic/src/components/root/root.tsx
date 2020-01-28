@@ -1,4 +1,4 @@
-import { Component, h } from "@stencil/core";
+import { Component, h, Listen } from "@stencil/core";
 
 @Component({
   tag: "app-root",
@@ -6,6 +6,10 @@ import { Component, h } from "@stencil/core";
   shadow: true
 })
 export class Root {
+  @Listen('upoadCompleteEvent')
+  uploadFileHanlder(event: CustomEvent){
+    console.log(event.detail)
+  }
   render() {
     return (
       <div class="ui grid">
