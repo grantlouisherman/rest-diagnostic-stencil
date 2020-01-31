@@ -1,4 +1,4 @@
-import { Component, h, Listen } from "@stencil/core";
+import { Component, h, Listen, State } from "@stencil/core";
 import yaml from 'js-yaml'
 
 
@@ -8,15 +8,28 @@ import yaml from 'js-yaml'
   shadow: true
 })
 export class Root {
+  @State() fileContents: any;
+
   @Listen('upoadCompleteEvent')
   uploadFileHanlder(event: CustomEvent){
-    console.log(yaml.load(event.detail))
+    this.fileContents = yaml.load(event.detail);
   }
+
+  renderFileUpload(){
+    return <file-upload></file-upload>
+  }
+
+  renderDiagnosticItems(){
+    const calls = this.fileContents.calls.map(call => (
+      <diagnose-item {...call}></diagnose-item>
+    ))
+    return [ ...calls ]
+  }
+
   render() {
     return (
-      <div class="ui grid">
-        <file-upload></file-upload>
-        
+      <div class="ui container">
+        { this.fileContents ? this.renderDiagnosticItems() : this.renderFileUpload() }
       </div>
     );
   }

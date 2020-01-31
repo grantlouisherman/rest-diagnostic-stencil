@@ -1,4 +1,4 @@
-import { Component, Host, h } from "@stencil/core";
+import { Component, Host, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "diagnose-item",
@@ -6,14 +6,21 @@ import { Component, Host, h } from "@stencil/core";
   shadow: true
 })
 export class Item {
+  @Prop() url: string;
+  @Prop() headers: any;
+  @Prop() method: string;
+  
   render() {
+    console.log(this.url)
+    console.log(this.headers)
+    console.log(this.method)
     return (
       <Host>
         <slot>
-          <form class="ui form">
+          <form class="ui form fetchItem">
             <div class="field">
               <label class="ui horizontal label">Url</label>
-              <input class="ui input" />
+              <input class="ui input" value={this.url} />
             </div>
             <div class="field">
               <label class="ui horizontal label">Method</label>
@@ -25,12 +32,13 @@ export class Item {
             </div>
             <div class="field">
               <label class="ui horizontal label">Headers</label>
-              <textarea></textarea>
+              <textarea>{JSON.stringify(this.headers, undefined, 2)}</textarea>
             </div>
             <div class="field">
               <component-icon></component-icon>
             </div>
           </form>
+          <hr /> 
         </slot>
       </Host>
     );

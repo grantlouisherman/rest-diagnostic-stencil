@@ -14,7 +14,11 @@ export namespace Components {
   interface ComponentIcon {
     'responseStatus': number;
   }
-  interface DiagnoseItem {}
+  interface DiagnoseItem {
+    'headers': any;
+    'method': string;
+    'url': string;
+  }
   interface FileUpload {}
 }
 
@@ -57,7 +61,11 @@ declare namespace LocalJSX {
   interface ComponentIcon {
     'responseStatus'?: number;
   }
-  interface DiagnoseItem {}
+  interface DiagnoseItem {
+    'headers'?: any;
+    'method'?: string;
+    'url'?: string;
+  }
   interface FileUpload {
     'onUpoadCompleteEvent'?: (event: CustomEvent<string | ArrayBuffer>) => void;
   }
