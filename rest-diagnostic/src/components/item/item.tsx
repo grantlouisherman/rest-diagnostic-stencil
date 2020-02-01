@@ -11,9 +11,6 @@ export class Item {
   @Prop() method: string;
   
   render() {
-    console.log(this.url)
-    console.log(this.headers)
-    console.log(this.method)
     return (
       <Host>
         <slot>
