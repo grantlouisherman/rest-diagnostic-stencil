@@ -7,7 +7,9 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-
+import {
+  FormEvent,
+} from './components/item/item';
 
 export namespace Components {
   interface AppRoot {}
@@ -15,6 +17,7 @@ export namespace Components {
     'responseStatus': number;
   }
   interface DiagnoseItem {
+    'fileId': string;
     'headers': any;
     'method': string;
     'url': string;
@@ -62,8 +65,10 @@ declare namespace LocalJSX {
     'responseStatus'?: number;
   }
   interface DiagnoseItem {
+    'fileId'?: string;
     'headers'?: any;
     'method'?: string;
+    'onFormChanged'?: (event: CustomEvent<FormEvent>) => void;
     'url'?: string;
   }
   interface FileUpload {

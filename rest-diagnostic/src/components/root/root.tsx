@@ -12,14 +12,29 @@ export class Root {
 
   @Listen('upoadCompleteEvent')
   uploadFileHanlder(event: CustomEvent){
-    this.fileContents = yaml.load(event.detail);
+    let FILE_CONTENTS = yaml.load(event.detail);
+    FILE_CONTENTS = FILE_CONTENTS.calls;
+    for(let key in FILE_CONTENTS){
+      FILE_CONTENTS[key].fileId = key
+    }
+    this.fileContents = FILE_CONTENTS;
+  }
+
+  @Listen('formChanged')
+  formChangeHanlder(event: CustomEvent){
+    const { id, value} = event.detail;
+    const lookUpValues:string  = id.split('-');
+    const lookUpId: string = lookUpValues[0];
+    const lookUpType = lookUpValues[1];
+    this.fileContents[lookUpId][lookUpType] = value;
+    console.log(this.fileContents);
   }
 
   renderFileUpload(){
     return <file-upload></file-upload>
   }
 
-  downloadHanlder(){
+  downLoadHandler(){
     const content = JSON.stringify(this.fileContents, undefined, 2);
     const BLOB = new Blob([content], { type: "text/plain;charset=utf-8" });
     const url = window.URL || window.webkitURL;
@@ -33,12 +48,12 @@ export class Root {
   }
 
   renderDiagnosticItems(){
-    const calls = this.fileContents.calls.map(call => (
+    const calls = this.fileContents.map(call => (
       <diagnose-item {...call}></diagnose-item>
-    ))
+    ));
     return [ 
       ...calls,
-      <button class="ui primary basic button" onClick={this.downloadHanlder.bind(this)}>Download Report</button>
+      <button class="ui primary basic button" onClick={this.downLoadHandler.bind(this)}>Download Report</button>
     ]
   }
 
