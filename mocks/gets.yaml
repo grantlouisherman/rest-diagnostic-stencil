@@ -1,0 +1,8 @@
+---
+calls:
+  - headers: !!map {"Content-Type": "application/json"}
+    "url": "https://jsonplaceholder.typicode.com/posts"
+    "method": "GET"
+  - headers: !!map {"Content-Type": "application/json"}
+    "url": "https://jsonplaceholder.typicode.com/posts"
+    "method": "GET"
