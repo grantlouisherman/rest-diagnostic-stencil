@@ -5,6 +5,11 @@ export interface FormEvent {
   value:string
 }
 
+export interface Response {
+  status: number,
+  responseBody: any
+}
+
 @Component({
   tag: "diagnose-item",
   styleUrl: "item.css",
@@ -15,6 +20,7 @@ export class Item {
   @Prop() url: string;
   @Prop() headers: any;
   @Prop() method: string;
+  @Prop() response: Response;
 
   @Event({ 
     eventName: 'formChanged',
@@ -58,7 +64,10 @@ export class Item {
               </textarea>
             </div>
             <div class="field">
-              <component-icon></component-icon>
+              {
+                this.response ? 
+                <component-icon responseStatus={this.response.status}></component-icon> : null
+              }    
             </div>
           </form>
           <hr /> 

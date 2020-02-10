@@ -64,7 +64,9 @@ export class Root {
       .then(() => {
         this.diagnosticCompleted = true;
       })
-      .catch(err => console.log(err))
+      .catch(() => {
+        this.diagnosticCompleted = true;
+      })
   }
 
   Reset(){
@@ -88,6 +90,7 @@ export class Root {
     ]
   }
   renderDiagnosticItems() {
+    console.log(this.fileContents)
     const calls = this.fileContents.map(call => (
       <diagnose-item {...call}></diagnose-item>
     ));

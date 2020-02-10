@@ -9,6 +9,7 @@
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   FormEvent,
+  Response,
 } from './components/item/item';
 
 export namespace Components {
@@ -20,6 +21,7 @@ export namespace Components {
     'fileId': string;
     'headers': any;
     'method': string;
+    'response': Response;
     'url': string;
   }
   interface FileUpload {}
@@ -69,6 +71,7 @@ declare namespace LocalJSX {
     'headers'?: any;
     'method'?: string;
     'onFormChanged'?: (event: CustomEvent<FormEvent>) => void;
+    'response'?: Response;
     'url'?: string;
   }
   interface FileUpload {
