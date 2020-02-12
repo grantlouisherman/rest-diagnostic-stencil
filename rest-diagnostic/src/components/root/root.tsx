@@ -1,6 +1,6 @@
 import { Component, h, Listen, State } from "@stencil/core";
-import yaml from 'js-yaml'
-import { shouldConstructFetchRequest } from '../../utils/utils'
+import yaml from "js-yaml";
+import { shouldConstructFetchRequest } from "../../utils/utils";
 
 @Component({
   tag: "app-root",
@@ -11,27 +11,34 @@ export class Root {
   @State() fileContents: any;
   @State() diagnosticCompleted: boolean = false;
 
-  @Listen('upoadCompleteEvent')
+  @Listen("upoadCompleteEvent")
   uploadFileHanlder(event: CustomEvent) {
     let FILE_CONTENTS = yaml.load(event.detail);
     FILE_CONTENTS = FILE_CONTENTS.calls;
     for (let key in FILE_CONTENTS) {
-      FILE_CONTENTS[key].fileId = key
+      FILE_CONTENTS[key].fileId = key;
+      FILE_CONTENTS[key].checkbox = true;
     }
     this.fileContents = FILE_CONTENTS;
   }
 
-  @Listen('formChanged')
+  @Listen("formChanged")
   formChangeHanlder(event: CustomEvent) {
     const { id, value } = event.detail;
-    const lookUpValues: string = id.split('-');
+    const lookUpValues: string = id.split("-");
     const lookUpId: string = lookUpValues[0];
-    const lookUpType = lookUpValues[1];
-    this.fileContents[lookUpId][lookUpType] = value;
+    const lookUpType: any = lookUpValues[1];
+    if (lookUpType === "checkbox") {
+      this.fileContents[lookUpId][lookUpType] = !this.fileContents[lookUpId][
+        lookUpType
+      ];
+    } else {
+      this.fileContents[lookUpId][lookUpType] = value;
+    }
   }
 
   renderFileUpload() {
-    return <file-upload></file-upload>
+    return <file-upload></file-upload>;
   }
 
   downLoadHandler() {
@@ -66,44 +73,51 @@ export class Root {
       })
       .catch(() => {
         this.diagnosticCompleted = true;
-      })
+      });
   }
 
-  Reset(){
+  Reset() {
     this.fileContents = null;
+    this.diagnosticCompleted = false;
   }
   renderButtons() {
-    return [
-      <button class="ui primary basic button"
-      onClick={this.Reset.bind(this)}>
-      Reset
-      </button>,
-      <button class="ui primary basic button"
-        onClick={this.downLoadHandler.bind(this)}>
-        Download Report
-        </button>,
-      <button class="ui primary basic button"
-        onClick={this.testCalls.bind(this)}
-      >
-        Run Calls
-      </button>
-    ]
+    return (
+      <div class="button-container">
+        <button class="ui primary basic button" onClick={this.Reset.bind(this)}>
+          Reset
+        </button>
+        {
+          this.diagnosticCompleted ?
+          <button
+          class="ui primary basic button"
+          onClick={this.downLoadHandler.bind(this)}
+          >
+          Download Report
+        </button> :
+          null
+        }
+        <button
+          class="ui primary basic button"
+          onClick={this.testCalls.bind(this)}
+        >
+          Run Calls
+        </button>
+      </div>
+    );
   }
   renderDiagnosticItems() {
-    console.log(this.fileContents)
     const calls = this.fileContents.map(call => (
       <diagnose-item {...call}></diagnose-item>
     ));
-    return [
-      this.renderButtons(),
-      ...calls
-    ]
+    return [this.renderButtons(), ...calls];
   }
 
   render() {
     return (
       <div class="ui container">
-        {this.fileContents ? this.renderDiagnosticItems() : this.renderFileUpload()}
+        {this.fileContents
+          ? this.renderDiagnosticItems()
+          : this.renderFileUpload()}
       </div>
     );
   }

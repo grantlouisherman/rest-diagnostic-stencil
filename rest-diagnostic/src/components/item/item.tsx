@@ -1,4 +1,5 @@
 import { Component, Host, h, Prop, Event, EventEmitter } from "@stencil/core";
+import { iconResolver } from '../../utils/utils'
 
 export interface FormEvent {
   id:string,
@@ -21,6 +22,7 @@ export class Item {
   @Prop() headers: any;
   @Prop() method: string;
   @Prop() response: Response;
+  @Prop() checkbox: string;
 
   @Event({ 
     eventName: 'formChanged',
@@ -44,13 +46,18 @@ export class Item {
             <div class="field">
               <label class="ui horizontal label">Url</label>
               <input class="ui input"
-              id={`${this.fileId}-url`} 
-              value={this.url} 
-              onInput={this.formChangeHandler.bind(this)} />
+                id={`${this.fileId}-url`} 
+                value={this.url} 
+                onInput={this.formChangeHandler.bind(this)} 
+                />
             </div>
             <div class="field">
               <label class="ui horizontal label">Method</label>
-              <select id={`${this.fileId}-method`}  class="ui selection dropdown" onChange={this.formChangeHandler.bind(this)}>
+              <select 
+                id={`${this.fileId}-method`}  
+                class="ui selection dropdown" 
+                onChange={this.formChangeHandler.bind(this)}
+                >
                 <option>GET</option>
                 <option>POST</option>
                 <option>PUT</option>
@@ -63,12 +70,24 @@ export class Item {
                 {JSON.stringify(this.headers, undefined, 2)}
               </textarea>
             </div>
-            <div class="field">
-              {
-                this.response ? 
-                <component-icon responseStatus={this.response.status}></component-icon> : null
-              }    
+            <div>
+            <label class="ui horizontal label">Include response body:</label>
+              <input 
+                class="ui checkbox"
+                id={`${this.fileId}-checkbox`} 
+                type="checkbox" 
+                onChange={this.formChangeHandler.bind(this)}
+                value={`${this.checkbox}`}
+                checked={Boolean(this.checkbox)} 
+                />
             </div>
+            {
+              this.response ? 
+              <div class={`field ui horizontal label ${iconResolver(this.response.status)}`} style={{"margin":"50px"}}>
+                <component-icon responseStatus={this.response.status}></component-icon>
+              </div>
+            : null
+            }
           </form>
           <hr /> 
         </slot>

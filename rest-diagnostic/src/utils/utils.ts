@@ -1,8 +1,7 @@
 
 
 export const shouldConstructFetchRequest = (fetchInfo: any) => {
-  // fileId:number, method: string, headers: any, query: any, url: string
-  const { method, headers, url } = fetchInfo
+  const { method, headers, url, checkbox } = fetchInfo
   const query = method != 'GET' ? fetchInfo.query : null
   const body = method != 'GET' ? JSON.stringify({ query }) : null
   let restStatus;
@@ -17,11 +16,21 @@ export const shouldConstructFetchRequest = (fetchInfo: any) => {
   })
     .then(call => ({
       status: restStatus,
-      responseBody: call,
+      responseBody: checkbox ? call : 'You opted to not include the body. Click on the checkbox to include it',
       fileId: fetchInfo.fileId
     })).catch(err => ({
       status: 500,
       responseBody: `There was an error: ${err}`,
       fileId: fetchInfo.fileId
     }))
+}
+
+export const iconResolver = responseCode => {
+  if( responseCode >= 200 && responseCode < 400 ){
+    return "teal"
+  } else if(responseCode){
+    return "yellow"
+  }
+  return null
+
 }
