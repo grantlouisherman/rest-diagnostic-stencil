@@ -1,0 +1,16 @@
+{
+	"calls":[
+		{
+		  "headers": {},
+		  "url": "https://jsonplaceholder.typicode.com/posts",
+		  "body": "",
+		  "method": "GET"
+		},
+		{
+			"headers": { "account_token": "MOCK"},
+			"url": " https://jsonplaceholder.typicode.com/posts",
+			"body": "",
+			"method": "GET"
+		}
+	]
+}
