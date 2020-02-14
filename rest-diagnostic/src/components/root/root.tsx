@@ -38,27 +38,46 @@ export class Root {
   }
 
   renderFileUpload() {
-    return <file-upload></file-upload>;
+    const EXAMPLE = {
+        "calls":[
+        {
+          "headers": {},
+          "url": "https://jsonplaceholder.typicode.com/posts",
+          "body": "",
+          "method": "GET"
+        },
+        {
+          "headers": { "account_token": "MOCK"},
+          "url": " https://jsonplaceholder.typicode.com/posts",
+          "body": "",
+          "method": "GET"
+        }
+      ]
+    }
+    return [
+      <file-upload></file-upload>,
+      <button class="ui primary basic button" 
+        onClick={() => ( this.downLoadHandler.apply(this, ['Example.json', EXAMPLE]) )}
+      >
+      Download Example File
+    </button> 
+    ];
   }
 
-  downLoadHandler() {
-    if (!this.diagnosticCompleted) {
-      alert("You still need to run your calls");
-      return;
-    }
-    const content = JSON.stringify(this.fileContents, undefined, 2);
+  downLoadHandler(downloadFileName, fileContent) {
+    const content = JSON.stringify(fileContent, undefined, 2);
     const BLOB = new Blob([content], { type: "text/plain;charset=utf-8" });
     const url = window.URL || window.webkitURL;
     const link = url.createObjectURL(BLOB);
     var a = document.createElement("a");
-    a.download = "Report.json";
+    a.download = downloadFileName;
     a.href = link;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
   }
 
-  async testCalls() {
+  testCalls() {
     Promise.all(this.fileContents.map(shouldConstructFetchRequest))
       .then((calls: any) => {
         for (let index in calls) {
@@ -80,6 +99,7 @@ export class Root {
     this.fileContents = null;
     this.diagnosticCompleted = false;
   }
+
   renderButtons() {
     return (
       <div class="button-container">
@@ -90,7 +110,7 @@ export class Root {
           this.diagnosticCompleted ?
           <button
           class="ui primary basic button"
-          onClick={this.downLoadHandler.bind(this)}
+          onClick={() => (this.downLoadHandler.apply(this, ['Report.json', this.fileContents]))}
           >
           Download Report
         </button> :
