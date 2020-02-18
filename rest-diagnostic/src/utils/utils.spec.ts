@@ -1,5 +1,5 @@
 import { shouldConstructFetchRequest, iconResolver } from './utils';
-//const { method, headers, url, checkbox } = fetchInfo
+
 describe('shouldConstructFetchRequest', () => {
   it('should return data that has body', async () => {
     let data = await shouldConstructFetchRequest({
