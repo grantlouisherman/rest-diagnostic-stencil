@@ -7,11 +7,21 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type     | Default     |
-| --------- | --------- | ----------- | -------- | ----------- |
-| `headers` | `headers` |             | `any`    | `undefined` |
-| `method`  | `method`  |             | `string` | `undefined` |
-| `url`     | `url`     |             | `string` | `undefined` |
+| Property   | Attribute  | Description | Type       | Default     |
+| ---------- | ---------- | ----------- | ---------- | ----------- |
+| `checkbox` | `checkbox` |             | `string`   | `undefined` |
+| `fileId`   | `file-id`  |             | `string`   | `undefined` |
+| `headers`  | `headers`  |             | `any`      | `undefined` |
+| `method`   | `method`   |             | `string`   | `undefined` |
+| `response` | --         |             | `Response` | `undefined` |
+| `url`      | `url`      |             | `string`   | `undefined` |
+
+
+## Events
+
+| Event         | Description | Type                     |
+| ------------- | ----------- | ------------------------ |
+| `formChanged` |             | `CustomEvent<FormEvent>` |
 
 
 ## Dependencies

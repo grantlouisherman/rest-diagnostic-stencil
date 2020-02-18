@@ -1,11 +1,11 @@
 {
-    "name": "Getting Started Example",
+    "name": "Rest Diagnostic Tool",
     "version": "1.0",
-    "description": "Build an Extension!",
+    "description": "A tool to systematically test a bunch of endpoints",
     "manifest_version": 2,
     "browser_action": {
         "default_popup": "index.html",
-        "default_title": "React Ext"
+        "default_title": "Rest Diagnostic Tool"
       },
       "permissions":[
         "downloads"
