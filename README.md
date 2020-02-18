@@ -1,4 +1,4 @@
-# rest-diagnostic-stencil
+# rest-diagnostic-tool
 
 File Type:
 
