@@ -18,6 +18,7 @@ export namespace Components {
     'responseStatus': number;
   }
   interface DiagnoseItem {
+    'body': any;
     'checkbox': string;
     'fileId': string;
     'headers': any;
@@ -76,6 +77,7 @@ declare namespace LocalJSX {
     'responseStatus'?: number;
   }
   interface DiagnoseItem {
+    'body'?: any;
     'checkbox'?: string;
     'fileId'?: string;
     'headers'?: any;

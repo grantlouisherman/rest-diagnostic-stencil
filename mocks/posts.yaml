@@ -1,0 +1,10 @@
+---
+calls:
+  - headers: !!map {"Content-type": "application/json; charset=UTF-8"}
+    "url": "https://jsonplaceholder.typicode.com/posts"
+    "body": "{
+      title: 'foo',
+      body: 'bar',
+      userId: 1
+    }"
+    "method": "POST"
