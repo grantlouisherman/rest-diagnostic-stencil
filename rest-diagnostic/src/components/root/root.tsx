@@ -10,6 +10,7 @@ import { shouldConstructFetchRequest } from "../../utils/utils";
 export class Root {
   @State() fileContents: any;
   @State() diagnosticCompleted: boolean = false;
+  @State() isLoading: boolean = false;
 
   @Listen("upoadCompleteEvent")
   uploadFileHanlder(event: CustomEvent) {
@@ -78,6 +79,7 @@ export class Root {
   }
 
   testCalls() {
+    this.isLoading = true;
     Promise.all(this.fileContents.map(shouldConstructFetchRequest))
       .then((calls: any) => {
         for (let index in calls) {
@@ -89,15 +91,18 @@ export class Root {
       })
       .then(() => {
         this.diagnosticCompleted = true;
+        this.isLoading = false;
       })
       .catch(() => {
         this.diagnosticCompleted = true;
+        this.isLoading = false;
       });
   }
 
   Reset() {
     this.fileContents = null;
     this.diagnosticCompleted = false;
+    this.isLoading = false;
   }
 
   renderButtons() {
@@ -129,6 +134,9 @@ export class Root {
     const calls = this.fileContents.map(call => (
       <diagnose-item {...call}></diagnose-item>
     ));
+    if(this.isLoading){
+      return <icon-loader></icon-loader>
+    }
     return [this.renderButtons(), ...calls];
   }
 

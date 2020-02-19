@@ -26,6 +26,7 @@ export namespace Components {
     'url': string;
   }
   interface FileUpload {}
+  interface IconLoader {}
 }
 
 declare global {
@@ -54,11 +55,18 @@ declare global {
     prototype: HTMLFileUploadElement;
     new (): HTMLFileUploadElement;
   };
+
+  interface HTMLIconLoaderElement extends Components.IconLoader, HTMLStencilElement {}
+  var HTMLIconLoaderElement: {
+    prototype: HTMLIconLoaderElement;
+    new (): HTMLIconLoaderElement;
+  };
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement;
     'component-icon': HTMLComponentIconElement;
     'diagnose-item': HTMLDiagnoseItemElement;
     'file-upload': HTMLFileUploadElement;
+    'icon-loader': HTMLIconLoaderElement;
   }
 }
 
@@ -79,12 +87,14 @@ declare namespace LocalJSX {
   interface FileUpload {
     'onUpoadCompleteEvent'?: (event: CustomEvent<string | ArrayBuffer>) => void;
   }
+  interface IconLoader {}
 
   interface IntrinsicElements {
     'app-root': AppRoot;
     'component-icon': ComponentIcon;
     'diagnose-item': DiagnoseItem;
     'file-upload': FileUpload;
+    'icon-loader': IconLoader;
   }
 }
 
@@ -98,6 +108,7 @@ declare module "@stencil/core" {
       'component-icon': LocalJSX.ComponentIcon & JSXBase.HTMLAttributes<HTMLComponentIconElement>;
       'diagnose-item': LocalJSX.DiagnoseItem & JSXBase.HTMLAttributes<HTMLDiagnoseItemElement>;
       'file-upload': LocalJSX.FileUpload & JSXBase.HTMLAttributes<HTMLFileUploadElement>;
+      'icon-loader': LocalJSX.IconLoader & JSXBase.HTMLAttributes<HTMLIconLoaderElement>;
     }
   }
 }
