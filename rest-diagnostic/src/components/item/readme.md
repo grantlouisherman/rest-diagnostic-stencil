@@ -9,6 +9,7 @@
 
 | Property   | Attribute  | Description | Type       | Default     |
 | ---------- | ---------- | ----------- | ---------- | ----------- |
+| `body`     | `body`     |             | `any`      | `undefined` |
 | `checkbox` | `checkbox` |             | `string`   | `undefined` |
 | `fileId`   | `file-id`  |             | `string`   | `undefined` |
 | `headers`  | `headers`  |             | `any`      | `undefined` |

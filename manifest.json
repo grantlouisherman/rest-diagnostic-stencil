@@ -1,6 +1,6 @@
 {
     "name": "Rest Diagnostic Tool",
-    "version": "1.0",
+    "version": "1.1",
     "description": "A tool to systematically test a bunch of endpoints",
     "manifest_version": 2,
     "browser_action": {
@@ -8,6 +8,7 @@
         "default_title": "Rest Diagnostic Tool"
       },
       "permissions":[
+        "*://*/*",
         "downloads"
       ]
     }
