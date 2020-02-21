@@ -106,10 +106,14 @@ export class Root {
   }
 
   renderButtons() {
+
+    if(this.isLoading){
+      return <icon-loader></icon-loader>
+    }
     return (
       <div class="button-container">
         <button class="ui primary basic button" onClick={this.Reset.bind(this)}>
-          Reset
+          Reupload File
         </button>
         {
           this.diagnosticCompleted ?
@@ -134,9 +138,6 @@ export class Root {
     const calls = this.fileContents.map(call => (
       <diagnose-item {...call}></diagnose-item>
     ));
-    if(this.isLoading){
-      return <icon-loader></icon-loader>
-    }
     return [this.renderButtons(), ...calls];
   }
 

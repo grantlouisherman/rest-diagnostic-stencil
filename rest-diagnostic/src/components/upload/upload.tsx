@@ -30,15 +30,10 @@ export class Upload {
     return (
       <Host>
         <slot>
-          <div class="ui placeholder segment">
-            <div class="ui icon header">
-              <i class="file outline icon"></i>
-              Please Upload Instructions
-            </div>
             <div class="ui primary button">
+                Please Upload Instructions
               <input id="the-file-input" type="file" onChange={($event: any) => this.handleFileUpload($event.target.files)} />
             </div>
-          </div>
         </slot>
       </Host>
     );
