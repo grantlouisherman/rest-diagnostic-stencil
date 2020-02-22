@@ -1,5 +1,7 @@
 import { Component, h, Listen, State } from "@stencil/core";
 import yaml from "js-yaml";
+import { get, set, del } from 'idb-keyval';
+
 import { shouldConstructFetchRequest } from "../../utils/utils";
 
 @Component({
@@ -12,8 +14,16 @@ export class Root {
   @State() diagnosticCompleted: boolean = false;
   @State() isLoading: boolean = false;
 
+  async componentDidLoad(){
+    let fileContents = await get('fileContents');
+    if(fileContents) {
+      this.fileContents = fileContents;
+      this.diagnosticCompleted = true;
+    }
+  }
+
   @Listen("upoadCompleteEvent")
-  uploadFileHanlder(event: CustomEvent) {
+  async uploadFileHanlder(event: CustomEvent) {
     let FILE_CONTENTS = yaml.load(event.detail);
     FILE_CONTENTS = FILE_CONTENTS.calls;
     for (let key in FILE_CONTENTS) {
@@ -21,10 +31,11 @@ export class Root {
       FILE_CONTENTS[key].checkbox = true;
     }
     this.fileContents = FILE_CONTENTS;
+    await set('fileContents', FILE_CONTENTS);
   }
 
   @Listen("formChanged")
-  formChangeHanlder(event: CustomEvent) {
+  async formChangeHanlder(event: CustomEvent) {
     const { id, value } = event.detail;
     const lookUpValues: string = id.split("-");
     const lookUpId: string = lookUpValues[0];
@@ -36,6 +47,7 @@ export class Root {
     } else {
       this.fileContents[lookUpId][lookUpType] = value;
     }
+    await set('fileContents', this.fileContents);
   }
 
   renderFileUpload() {
@@ -99,7 +111,8 @@ export class Root {
       });
   }
 
-  Reset() {
+  async Reset() {
+    await del('fileContents');
     this.fileContents = null;
     this.diagnosticCompleted = false;
     this.isLoading = false;

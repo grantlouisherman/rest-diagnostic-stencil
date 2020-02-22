@@ -41,7 +41,6 @@ export class Item {
     );
     this.methodsForAPICall.splice(indexOfSelectedMethod, 1);
     this.methodsForAPICall.splice(0, 0, selectedMethod);
-    console.log(this.methodsForAPICall)
   }
 
   @Event({

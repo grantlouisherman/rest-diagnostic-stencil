@@ -8,7 +8,8 @@
         "default_title": "Rest Diagnostic Tool"
       },
       "permissions":[
-        "*://*/*",
+        "http://*/*",
+        "https://*/*",
         "downloads"
       ]
     }
